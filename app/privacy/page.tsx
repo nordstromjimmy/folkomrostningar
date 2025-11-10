@@ -1,7 +1,7 @@
 export default function PrivacyPage() {
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Integritetspolicy</h1>
+      <h1 className="text-xl font-semibold">Integritetspolicy</h1>
       <p>
         Vi värnar om din integritet. Endast nödvändig information som din
         e-postadress lagras i samband med registrering. Dina uppgifter delas

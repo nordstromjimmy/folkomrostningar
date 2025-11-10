@@ -8,10 +8,23 @@ type DocumentDetail = {
   doktyp: string | null;
   datum: string | null;
   dokument_url_pdf: string | null;
+  authors: Author[] | null;
+  vote_questions: VoteQuestion[] | null;
+};
+
+type Author = {
+  roll: string | null;
+  namn: string | null;
+  partibet: string | null;
+  intressent_id: string | null;
 };
 
 type DetailPageProps = {
   params: Promise<{ dok_id: string }>;
+};
+
+type VoteQuestion = {
+  question: string;
 };
 
 export default async function DocumentDetailPage({ params }: DetailPageProps) {
@@ -19,7 +32,9 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
 
   const { data, error } = await supabase
     .from("documents")
-    .select("id, dok_id, titel, summary, doktyp, datum, dokument_url_pdf")
+    .select(
+      "id, dok_id, titel, summary, doktyp, datum, dokument_url_pdf, authors, vote_questions"
+    )
     .eq("dok_id", dok_id)
     .maybeSingle();
 
@@ -28,6 +43,11 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
   }
 
   const doc = data as DocumentDetail | null;
+
+  const mainQuestion =
+    doc!.vote_questions && doc!.vote_questions.length > 0
+      ? doc!.vote_questions[0].question
+      : null;
 
   if (!doc) {
     return (
@@ -45,6 +65,20 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
     <div className="min-h-[50vh] py-10">
       <h1 className="text-2xl font-semibold text-gray-900">{doc.titel}</h1>
 
+      {/* Authors */}
+      {doc.authors && doc.authors.length > 0 && (
+        <p className="mt-1 text-sm text-gray-700">
+          {doc.authors
+            .map((a) => {
+              if (!a) return null;
+              const name = a.namn ?? "";
+              const party = a.partibet ? ` (${a.partibet})` : "";
+              return `${name}${party}`;
+            })
+            .filter(Boolean)
+            .join(", ")}
+        </p>
+      )}
       <p className="mt-2 text-sm text-gray-500">
         {doc.doktyp === "mot"
           ? "Motion"
@@ -62,6 +96,10 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
 
       {doc.dokument_url_pdf && (
         <div className="mt-6">
+          <h2 className="mb-2 text-lg font-semibold text-gray-900">
+            Läs hela förslaget
+          </h2>
+
           <a
             href={doc.dokument_url_pdf}
             target="_blank"
@@ -77,9 +115,30 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
         <h2 className="text-lg font-semibold text-gray-900">
           Vad tycker du om detta förslag?
         </h2>
-        <p className="mt-1 text-sm text-gray-600">
-          Snart kommer du kunna logga in och rösta här.
-        </p>
+
+        {mainQuestion ? (
+          <>
+            <p className="mt-2 text-md text-gray-900">{mainQuestion}</p>
+            <p className="mt-1 text-sm text-gray-500">
+              Detta är en förenklad formulering baserad på dokumentets förslag.
+            </p>
+
+            {/* Placeholder-knappar – kopplas till riktig röstlogik senare */}
+            <div className="mt-4 flex flex-wrap gap-6">
+              <button className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 cursor-pointer">
+                Rösta för
+              </button>
+              <button className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 cursor-pointer">
+                Rösta emot
+              </button>
+            </div>
+          </>
+        ) : (
+          <p className="mt-2 text-sm text-gray-600">
+            För denna motion har vi inte kunnat formulera en tydlig röstfråga.
+            Du kan läsa hela texten via PDF-länken ovan.
+          </p>
+        )}
       </div>
     </div>
   );

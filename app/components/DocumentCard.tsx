@@ -37,7 +37,9 @@ export function DocumentCard({ doc }: DocumentCardProps) {
 
       {/* Summary */}
       {doc.summary && (
-        <p className="mt-2 text-sm italic text-gray-900">{doc.summary}</p>
+        <p className="mt-2 text-sm italic text-gray-900">
+          {doc.summary + ".."}
+        </p>
       )}
 
       {/* bottom row: left = "Läs mer & rösta", right = date */}
