@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import "./globals.css";
 
 export const metadata = {
-  title: "folkomröstningar.se",
+  title: "Folkomröstningar - ",
   description:
     "Inofficiell plattform för att se vad riksdagen behandlar och vad svenska folket tycker om nya förslag.",
 };

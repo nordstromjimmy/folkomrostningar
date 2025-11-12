@@ -60,9 +60,12 @@ export default function Header() {
           {isLoggedIn ? (
             <>
               {user?.email && (
-                <span className="text-xs text-gray-500">
-                  Inloggad som {user.email}
-                </span>
+                <Link
+                  href="/profile"
+                  className="text-xs text-blue-700 hover:text-blue-900 hover:underline"
+                >
+                  Min profil
+                </Link>
               )}
               <button
                 onClick={handleLogout}
@@ -79,7 +82,10 @@ export default function Header() {
               >
                 Logga in
               </Link>
-              <Link href="/signup" className="text-blue-700 hover:underline">
+              <Link
+                href="/signup"
+                className="text-blue-700 hover:text-blue-900"
+              >
                 Skapa konto
               </Link>
             </>
@@ -144,9 +150,13 @@ export default function Header() {
             {isLoggedIn ? (
               <>
                 {user?.email && (
-                  <span className="mb-1 text-xs text-gray-500">
-                    Inloggad som {user.email}
-                  </span>
+                  <Link
+                    href="/profile"
+                    className="mb-1 w-full rounded-md px-2 py-1 text-left text-blue-900 hover:bg-blue-50"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Min profil
+                  </Link>
                 )}
                 <button
                   onClick={handleLogout}
