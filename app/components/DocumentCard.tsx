@@ -1,4 +1,6 @@
-// components/DocumentCard.tsx
+"use client";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 import Link from "next/link";
 
 export type DocumentRow = {
@@ -16,6 +18,22 @@ type DocumentCardProps = {
 };
 
 export function DocumentCard({ doc }: DocumentCardProps) {
+  const [votes, setVotes] = useState<number | null>(null);
+
+  useEffect(() => {
+    const loadVotes = async () => {
+      const { data, error } = await supabase
+        .from("vote_counts")
+        .select("votes_total")
+        .eq("document_id", doc.id)
+        .maybeSingle();
+
+      if (!error && data) setVotes(data.votes_total ?? 0);
+      else setVotes(0);
+    };
+    loadVotes();
+  }, [doc.id]);
+
   return (
     <li className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
       {/* Title + type pill */}
@@ -42,7 +60,12 @@ export function DocumentCard({ doc }: DocumentCardProps) {
         </p>
       )}
 
-      {/* bottom row: left = "Läs mer & rösta", right = date */}
+      {/* Antal röster */}
+      <p className="mt-2 text-xs text-gray-600">
+        Antal röster: {votes === null ? "Laddar..." : votes}
+      </p>
+
+      {/* bottom row: left = link, right = date */}
       <div className="mt-2 flex items-center justify-between gap-2">
         <Link
           href={`/dokument/${doc.dok_id}`}

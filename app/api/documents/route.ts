@@ -16,7 +16,7 @@ export async function GET(req: Request) {
       "id, dok_id, titel, summary, doktyp, datum, dokument_url_pdf, vote_questions"
     )
     .gte("datum", "2025-11-01")
-    /*     .not("vote_questions", "is", null) */
+    .not("vote_questions", "is", null)
     .order("datum", { ascending: false })
     .order("id", { ascending: false })
     .range(offset, offset + limit - 1);

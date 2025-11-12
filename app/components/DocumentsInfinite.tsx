@@ -86,7 +86,7 @@ export default function DocumentsInfinite() {
       </ul>
 
       <div className="mt-4 flex justify-center">
-        {loading && <p className="text-xs text-gray-500">Laddar fler…</p>}
+        {loading && <p className="text-xs text-gray-500">Laddar..</p>}
       </div>
       <div ref={sentinelRef} className="h-4" />
     </>

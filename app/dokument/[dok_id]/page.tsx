@@ -1,3 +1,4 @@
+import { VoteButtons } from "@/app/components/VoteButtons";
 import { supabase } from "@/app/lib/supabaseClient";
 
 type DocumentDetail = {
@@ -118,20 +119,11 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
 
         {mainQuestion ? (
           <>
-            <p className="mt-2 text-md text-gray-900">{mainQuestion}</p>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-900">{mainQuestion}</p>
+            <p className="mt-1 text-xs text-gray-500">
               Detta är en förenklad formulering baserad på dokumentets förslag.
             </p>
-
-            {/* Placeholder-knappar – kopplas till riktig röstlogik senare */}
-            <div className="mt-4 flex flex-wrap gap-6">
-              <button className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 cursor-pointer">
-                Rösta för
-              </button>
-              <button className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 cursor-pointer">
-                Rösta emot
-              </button>
-            </div>
+            <VoteButtons documentId={doc.id} />
           </>
         ) : (
           <p className="mt-2 text-sm text-gray-600">

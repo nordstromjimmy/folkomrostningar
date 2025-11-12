@@ -51,7 +51,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 border-b border-gray-200 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-4xl items-center justify-evenly px-4 py-3 md:py-4">
+      <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 md:py-4">
         <h1 className="text-2xl font-semibold text-gray-900">
           <Link href="/">Folkomröstningar.se</Link>
         </h1>
