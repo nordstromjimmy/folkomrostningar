@@ -64,7 +64,7 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
   }
   return (
     <div className="min-h-[50vh] py-10">
-      <h1 className="text-2xl font-semibold text-gray-900">{doc.titel}</h1>
+      <h1 className="text-lg font-semibold text-gray-900">{doc.titel}</h1>
 
       {/* Authors */}
       {doc.authors && doc.authors.length > 0 && (
@@ -113,14 +113,14 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
       )}
 
       <div className="mt-10 border-t border-gray-200 pt-6">
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-gray-900">
           Vad tycker du om detta förslag?
         </h2>
 
         {mainQuestion ? (
           <>
-            <p className="mt-2 text-sm text-gray-900">{mainQuestion}</p>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-2 text-ls text-gray-900">{mainQuestion}</p>
+            <p className="mt-1 text-sm text-gray-500">
               Detta är en förenklad formulering baserad på dokumentets förslag.
             </p>
             <VoteButtons documentId={doc.id} />

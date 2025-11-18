@@ -8,32 +8,25 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Toggle this when you're ready to re-enable signups
+const REGISTRATION_OPEN = false;
+
 export default function SignupPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [infoMsg, setInfoMsg] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMsg(null);
-    setInfoMsg(null);
-    setLoading(true);
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setErrorMsg(error.message || "Kunde inte skapa konto.");
+    // 🔴 STOP REGISTRATION
+    if (!REGISTRATION_OPEN) {
       return;
     }
-    router.push("/login");
+
+    // (Your existing logic remains but won't run)
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (!error) router.push("/login");
   };
 
   return (
@@ -42,12 +35,18 @@ export default function SignupPage() {
         <h1 className="text-2xl font-semibold text-gray-900 text-center">
           Skapa konto
         </h1>
-        <p className="mt-2 text-sm text-gray-600 text-center">
-          Skapa ett konto för att kunna rösta på förslag.
-        </p>
 
+        {/* 🔴 REGISTRATION DISABLED MESSAGE */}
+        {!REGISTRATION_OPEN && (
+          <p className="mt-4 text-sm text-red-700 text-center font-medium">
+            Registrering är för närvarande avstängd medan vi arbetar vidare med
+            sidan. <br /> Kom tillbaka snart!
+          </p>
+        )}
+
+        {/* Form is still shown but inputs/buttons are disabled */}
         <form onSubmit={handleSubmit} className="mt-6 max-w-sm space-y-4">
-          <div>
+          <div className={`${!REGISTRATION_OPEN ? "opacity-40" : ""}`}>
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
@@ -57,15 +56,15 @@ export default function SignupPage() {
             <input
               id="email"
               type="email"
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              disabled={!REGISTRATION_OPEN}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
             />
           </div>
 
-          <div>
+          <div className={`${!REGISTRATION_OPEN ? "opacity-40" : ""}`}>
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
@@ -75,23 +74,20 @@ export default function SignupPage() {
             <input
               id="password"
               type="password"
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              disabled={!REGISTRATION_OPEN}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
             />
           </div>
 
-          {errorMsg && <p className="text-sm text-red-600">{errorMsg}</p>}
-          {infoMsg && <p className="text-sm text-green-700">{infoMsg}</p>}
-
           <button
             type="submit"
-            disabled={loading}
-            className="w-full inline-flex justify-center items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60 cursor-pointer"
+            disabled={!REGISTRATION_OPEN}
+            className="w-full inline-flex justify-center items-center rounded-md bg-blue-300 px-4 py-2 text-sm font-medium text-white cursor-not-allowed"
           >
-            {loading ? "Skapar konto..." : "Skapa konto"}
+            Skapa konto
           </button>
         </form>
 
