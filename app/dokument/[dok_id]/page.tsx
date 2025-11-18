@@ -1,5 +1,6 @@
 import { VoteButtons } from "@/app/components/VoteButtons";
 import { supabase } from "@/app/lib/supabaseClient";
+import type { Metadata } from "next";
 
 type DocumentDetail = {
   id: number;
@@ -27,6 +28,62 @@ type DetailPageProps = {
 type VoteQuestion = {
   question: string;
 };
+
+type DetailPageParams = {
+  params: { dok_id: string };
+};
+
+export async function generateMetadata({
+  params,
+}: DetailPageParams): Promise<Metadata> {
+  const dokId = params.dok_id;
+
+  // Hämta dokumentet från Supabase
+  const { data, error } = await supabase
+    .from("documents")
+    .select("titel, summary, doktyp, datum")
+    .eq("dok_id", dokId)
+    .maybeSingle();
+
+  if (error || !data) {
+    // Fallback if missing
+    return {
+      title: `Dokument ${dokId} – Folkomröstningar.se`,
+      description:
+        "Se information om detta dokument från riksdagens öppna data på folkomrostningar.se.",
+      alternates: {
+        canonical: `https://folkomrostningar.se/dokument/${dokId}`,
+      },
+    };
+  }
+
+  const { titel, summary, doktyp, datum } = data;
+
+  const typeLabel =
+    doktyp === "mot"
+      ? "Motion"
+      : doktyp === "prop"
+      ? "Proposition"
+      : "Dokument";
+
+  const desc =
+    (summary as string | null)?.trim()?.slice(0, 250) ||
+    `Läs ${typeLabel.toLowerCase()} från riksdagens öppna data och se hur användare röstar på förslaget.`;
+
+  return {
+    title: `${titel} – ${typeLabel} – Folkomröstningar.se`,
+    description: desc,
+    alternates: {
+      canonical: `https://folkomrostningar.se/dokument/${dokId}`,
+    },
+    openGraph: {
+      title: `${titel} – ${typeLabel}`,
+      description: desc,
+      url: `https://folkomrostningar.se/dokument/${dokId}`,
+      type: "article",
+    },
+  };
+}
 
 export default async function DocumentDetailPage({ params }: DetailPageProps) {
   const { dok_id } = await params;
