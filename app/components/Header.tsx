@@ -1,13 +1,8 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from "../lib/supabaseClient";
 
 type SupabaseUser = {
   id: string;
@@ -126,7 +121,7 @@ export default function Header() {
             Inofficiell plattform för att lättare få en översyn över vad
             riksdagen behandlar och vad svenska folket tycker om nya förslag och
             lagar. <br></br> Sidan har ingen koppling till Sveriges riksdag
-            eller regeringen.
+            eller regering.
           </span>
         </p>
 
