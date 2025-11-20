@@ -8,7 +8,7 @@ export default function HomePage() {
       <div className="mx-auto max-w-4xl">
         <SubscribeSection />
         <section>
-          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Senaste motioner och propositioner{" "}
             <HelpPopover title="">
               <h1>
