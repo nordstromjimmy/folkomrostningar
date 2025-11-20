@@ -1,3 +1,4 @@
+import HelpPopover from "@/app/components/HelpPopover";
 import { VoteButtons } from "@/app/components/VoteButtons";
 import { supabase } from "@/app/lib/supabaseClient";
 import type { Metadata } from "next";
@@ -168,14 +169,16 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
       <div className="mt-10 border-t border-gray-200 pt-6">
         <h2 className="text-xl font-semibold text-gray-900">
           Vad tycker du om detta förslag?
+          <HelpPopover title="Sammanfattning">
+            <p className="mt-1 text-sm text-gray-500">
+              Nedan är en förenklad formulering baserad på dokumentets förslag.
+            </p>
+          </HelpPopover>
         </h2>
 
         {mainQuestion ? (
           <>
             <p className="mt-2 text-ls text-gray-900">{mainQuestion}</p>
-            <p className="mt-1 text-sm text-gray-500">
-              Detta är en förenklad formulering baserad på dokumentets förslag.
-            </p>
             <VoteButtons documentId={doc.id} />
           </>
         ) : (
