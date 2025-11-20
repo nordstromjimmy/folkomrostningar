@@ -29,35 +29,31 @@ type VoteQuestion = {
   question: string;
 };
 
-type DetailPageParams = {
-  params: { dok_id: string };
-};
-
 export async function generateMetadata({
   params,
-}: DetailPageParams): Promise<Metadata> {
-  const dokId = params.dok_id;
+}: DetailPageProps): Promise<Metadata> {
+  const { dok_id } = await params;
 
   // Hämta dokumentet från Supabase
   const { data, error } = await supabase
     .from("documents")
-    .select("titel, summary, doktyp, datum")
-    .eq("dok_id", dokId)
+    .select("titel, summary, doktyp")
+    .eq("dok_id", dok_id)
     .maybeSingle();
 
   if (error || !data) {
     // Fallback if missing
     return {
-      title: `Dokument ${dokId} – Folkomröstningar.se`,
+      title: `Dokument ${dok_id} – Folkomröstningar.se`,
       description:
         "Se information om detta dokument från riksdagens öppna data på folkomrostningar.se.",
       alternates: {
-        canonical: `https://folkomrostningar.se/dokument/${dokId}`,
+        canonical: `https://folkomrostningar.se/dokument/${dok_id}`,
       },
     };
   }
 
-  const { titel, summary, doktyp, datum } = data;
+  const { titel, summary, doktyp } = data;
 
   const typeLabel =
     doktyp === "mot"
@@ -74,12 +70,12 @@ export async function generateMetadata({
     title: `${titel} – ${typeLabel} – Folkomröstningar.se`,
     description: desc,
     alternates: {
-      canonical: `https://folkomrostningar.se/dokument/${dokId}`,
+      canonical: `https://folkomrostningar.se/dokument/${dok_id}`,
     },
     openGraph: {
       title: `${titel} – ${typeLabel}`,
       description: desc,
-      url: `https://folkomrostningar.se/dokument/${dokId}`,
+      url: `https://folkomrostningar.se/dokument/${dok_id}`,
       type: "article",
     },
   };
