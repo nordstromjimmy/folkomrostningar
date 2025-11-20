@@ -53,7 +53,7 @@ export default function HelpPopover({
         onClick={() => setOpen((prev) => !prev)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-white text-xs font-bold text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="inline-flex h-6 w-6 items-center justify-center mx-1 rounded-full border border-gray-300 bg-white text-xs font-bold cursor-pointer text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         ?
       </button>
