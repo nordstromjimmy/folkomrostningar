@@ -57,7 +57,7 @@ export default function Header() {
               {user?.email && (
                 <Link
                   href="/profile"
-                  className="text-xs text-blue-700 hover:text-blue-900 hover:underline"
+                  className="text-xs text-blue-900 hover:underline"
                 >
                   Min profil
                 </Link>
