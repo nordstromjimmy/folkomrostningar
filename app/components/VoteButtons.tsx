@@ -1,54 +1,11 @@
 "use client";
 import { supabase } from "@/app/lib/supabaseClient";
 import { useEffect, useState } from "react";
+import VoteResultBar from "./VoteResultBar";
 
 type Counts = { for: number; against: number; total: number };
 
 type VoteButtonsProps = { documentId: number };
-
-function VoteResultBar({ counts }: { counts: Counts }) {
-  const { for: forCount, against: againstCount, total } = counts;
-
-  if (total === 0) {
-    return <p className="text-sm text-gray-700 mt-2">Inga röster ännu</p>;
-  }
-
-  const forPct = (forCount / total) * 100;
-  const againstPct = (againstCount / total) * 100;
-
-  return (
-    <div className="mt-4 w-full">
-      {/* Bar */}
-      <div className="relative h-6 w-full overflow-hidden rounded-sm bg-gray-200">
-        <div
-          className="absolute left-0 top-0 h-full bg-green-600 transition-all duration-700"
-          style={{ width: `${forPct}%` }}
-        />
-        <div
-          className="absolute right-0 top-0 h-full bg-red-600 transition-all duration-700"
-          style={{ width: `${againstPct}%` }}
-        />
-      </div>
-
-      {/* Labels */}
-      <div className="mt-2 flex justify-between text-xs text-gray-700">
-        <span className="flex items-center gap-1">
-          <span className="inline-block h-3 w-3 rounded-full bg-green-600" />
-          För: <strong>{forCount}</strong> ({forPct.toFixed(1)}%)
-        </span>
-
-        <span className="flex items-center gap-1">
-          <span className="inline-block h-3 w-3 rounded-full bg-red-600" />
-          Emot: <strong>{againstCount}</strong> ({againstPct.toFixed(1)}%)
-        </span>
-      </div>
-
-      <p className="mt-1 text-xs text-gray-500 text-right">
-        Totalt: <strong>{total}</strong> röster
-      </p>
-    </div>
-  );
-}
 
 export function VoteButtons({ documentId }: VoteButtonsProps) {
   const [ready, setReady] = useState(false); // unified loading
