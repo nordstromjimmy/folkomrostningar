@@ -49,7 +49,7 @@ export default function SubscribeSection() {
 
   return (
     <section className="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
-      <h2 className="text-lg font-semibold text-red-700">
+      <h2 className="text-md font-semibold text-red-500">
         Denna sida är under uppbyggnad.
       </h2>
       <p className="mt-1 text-sm text-gray-700">
