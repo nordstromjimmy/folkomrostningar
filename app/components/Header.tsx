@@ -46,8 +46,8 @@ export default function Header() {
   const isLoggedIn = !!user;
 
   return (
-    <header className="border-b border-gray-200 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 md:py-4">
+    <header className=" bg-white/80 backdrop-blur">
+      <div className="mx-auto border-b-1 border-gray-300 flex max-w-4xl items-center justify-between px-4 py-3 md:py-4">
         <Link href="/" className="flex items-center gap-1">
           <Image
             src="/logo.png"
@@ -125,9 +125,9 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="px-4 pb-3 text-center md:pb-4">
+      <div className="px-4 text-center md:pb-4">
         <p className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-gray-100">
-          <span className="inline-block rounded-xl border-b-4 border-yellow-200 bg-blue-600 px-6 py-4">
+          <span className="inline-block mt-4 rounded-xl border-b-4 border-yellow-200 bg-blue-600 px-6 py-4">
             Inofficiell plattform för att lättare få en översyn över vad
             riksdagen behandlar och vad svenska folket tycker om nya förslag och
             lagar. <br></br> Sidan har ingen koppling till Sveriges riksdag
