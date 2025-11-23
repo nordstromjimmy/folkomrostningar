@@ -15,7 +15,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser>(null);
 
-  // Check current user once on mount + listen for auth changes
   useEffect(() => {
     const getUser = async () => {
       const {
@@ -46,9 +45,11 @@ export default function Header() {
   const isLoggedIn = !!user;
 
   return (
-    <header className=" bg-white/80 backdrop-blur">
-      <div className="mx-auto border-b-1 border-gray-300 flex max-w-4xl items-center justify-between px-4 py-3 md:py-4">
-        <Link href="/" className="flex items-center gap-1">
+    <header className="bg-white/80 backdrop-blur border-b border-slate-200">
+      {/* Top bar */}
+      <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3 md:py-4">
+        {/* Logo + name */}
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
             alt="Folkomröstningar logo"
@@ -56,25 +57,28 @@ export default function Header() {
             height={40}
             priority
           />
-          <span className="text-2xl font-semibold text-gray-900">
-            Folkomröstningar.se
-          </span>
+          <div className="flex flex-col leading-tight">
+            <span className="text-2xl font-semibold text-slate-900">
+              Folkomröstningar.se
+            </span>
+          </div>
         </Link>
 
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-3 text-sm md:flex">
           {isLoggedIn ? (
             <>
               {user?.email && (
                 <Link
                   href="/profile"
-                  className="text-xs text-blue-900 hover:underline"
+                  className="text-xs font-medium text-slate-600 hover:text-slate-900"
                 >
                   Min profil
                 </Link>
               )}
               <button
                 onClick={handleLogout}
-                className="rounded-md border border-red-600 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 cursor-pointer"
+                className="cursor-pointer rounded-full border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
               >
                 Logga ut
               </button>
@@ -83,13 +87,13 @@ export default function Header() {
             <>
               <Link
                 href="/login"
-                className="rounded-md border border-blue-700 bg-blue-700 px-3 py-1 text-sm text-white hover:bg-blue-800"
+                className="rounded-sm bg-slate-900 px-4 py-1.5 text-xs font-medium text-slate-50 hover:bg-slate-800"
               >
                 Logga in
               </Link>
               <Link
                 href="/signup"
-                className="text-blue-700 hover:text-blue-900"
+                className="text-xs font-medium text-slate-700 hover:text-slate-900"
               >
                 Skapa konto
               </Link>
@@ -100,24 +104,24 @@ export default function Header() {
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md border border-gray-300 p-2 text-gray-700 hover:bg-gray-100 md:hidden"
+          className="inline-flex items-center justify-center rounded-md border border-slate-300 p-2 text-slate-700 hover:bg-slate-100 md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Öppna meny"
         >
           <span className="sr-only">Öppna meny</span>
           <div className="space-y-1">
             <span
-              className={`block h-0.5 w-5 bg-gray-800 transition-transform ${
+              className={`block h-0.5 w-5 bg-slate-900 transition-transform ${
                 menuOpen ? "translate-y-1.5 rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-5 bg-gray-800 transition-opacity ${
+              className={`block h-0.5 w-5 bg-slate-900 transition-opacity ${
                 menuOpen ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`block h-0.5 w-5 bg-gray-800 transition-transform ${
+              className={`block h-0.5 w-5 bg-slate-900 transition-transform ${
                 menuOpen ? "-translate-y-1.5 -rotate-45" : ""
               }`}
             />
@@ -125,23 +129,25 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="px-4 text-center md:pb-4">
-        <p className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-gray-100">
-          <span className="inline-block mt-4 rounded-xl border-b-4 border-yellow-200 bg-blue-600 px-6 py-4">
-            Inofficiell plattform för att lättare få en översyn över vad
-            riksdagen behandlar och vad svenska folket tycker om nya förslag och
-            lagar. <br></br> Sidan har ingen koppling till Sveriges riksdag
-            eller regering.
+      {/* Tagline / info */}
+      <div className="px-4 pb-4 text-center">
+        <p className="mx-auto mt-2 max-w-3xl text-sm text-slate-700">
+          <span className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-14 py-4">
+            <span className="text-sm sm:text-sm text-slate-800">
+              Inofficiell plattform för att få en översikt över vad riksdagen
+              behandlar och vad svenska folket tycker om nya förslag och lagar.
+              Sidan har ingen koppling till Sveriges riksdag eller regering.
+            </span>
           </span>
         </p>
 
-        <p className="mt-3 text-sm text-gray-500">
+        <p className="mt-3 text-xs text-slate-500">
           Data hämtas från{" "}
           <a
             href="https://www.riksdagen.se/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-blue-900 hover:underline"
+            className="font-medium text-slate-900 hover:underline"
           >
             riksdagen.se
           </a>
@@ -150,14 +156,14 @@ export default function Header() {
 
       {/* Mobile dropdown menu */}
       {menuOpen && (
-        <div className="border-t border-gray-200 bg-white/95 px-4 py-3 text-sm md:hidden">
+        <div className="border-t border-slate-200 bg-white/95 px-4 py-3 text-sm md:hidden">
           <nav className="flex flex-col items-start gap-2">
             {isLoggedIn ? (
               <>
                 {user?.email && (
                   <Link
                     href="/profile"
-                    className="mb-1 w-full rounded-md px-2 py-1 text-left text-blue-900 hover:bg-blue-50"
+                    className="mb-1 w-full rounded-md px-2 py-1 text-left text-slate-700 hover:bg-slate-50"
                     onClick={() => setMenuOpen(false)}
                   >
                     Min profil
@@ -165,7 +171,7 @@ export default function Header() {
                 )}
                 <button
                   onClick={handleLogout}
-                  className="w-full rounded-md border px-2 py-1 text-left text-red-600"
+                  className="w-full rounded-md border border-slate-300 px-2 py-1 text-left text-red-600 hover:bg-red-50"
                 >
                   Logga ut
                 </button>
@@ -174,14 +180,14 @@ export default function Header() {
               <>
                 <Link
                   href="/login"
-                  className="w-full rounded-md border border-blue-700 bg-blue-700 px-3 py-1 text-left text-white hover:bg-blue-800"
+                  className="w-full rounded-sm bg-slate-900 px-3 py-1.5 text-left text-xs font-medium text-slate-50 hover:bg-slate-800"
                   onClick={() => setMenuOpen(false)}
                 >
                   Logga in
                 </Link>
                 <Link
                   href="/signup"
-                  className="w-full rounded-md border border-blue-700 px-2 py-1 text-left text-blue-700 hover:bg-blue-50"
+                  className="w-full rounded-md border border-slate-300 px-2 py-1 text-left text-slate-700 hover:bg-slate-50"
                   onClick={() => setMenuOpen(false)}
                 >
                   Skapa konto

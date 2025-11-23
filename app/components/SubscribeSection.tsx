@@ -48,8 +48,11 @@ export default function SubscribeSection() {
   const disabled = status === "loading";
 
   return (
-    <section className="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
+    <section className="mb-8 rounded-xl border border-gray-200 bg-slate-50 p-4 shadow-sm">
       <h2 className="text-md font-semibold text-red-500">
+        <span className="rounded-full bg-slate-900 mr-2 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-50">
+          Beta
+        </span>
         Denna sida är under uppbyggnad.
       </h2>
       <p className="mt-1 text-sm text-gray-700">
@@ -67,12 +70,12 @@ export default function SubscribeSection() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={disabled}
-          className="w-full flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100"
+          className="w-full flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-slate-700 disabled:bg-gray-100"
         />
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60 cursor-pointer"
+          className="inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60 cursor-pointer"
         >
           {status === "loading" ? "Skickar..." : "Prenumerera"}
         </button>

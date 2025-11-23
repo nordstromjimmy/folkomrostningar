@@ -159,7 +159,7 @@ export default async function DocumentDetailPage({ params }: DetailPageProps) {
             href={doc.dokument_url_pdf}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-gray-100 hover:bg-blue-700"
+            className="inline-flex items-center gap-2 rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-gray-100 hover:bg-slate-800"
           >
             Öppna PDF
           </a>

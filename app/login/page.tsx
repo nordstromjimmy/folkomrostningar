@@ -52,7 +52,7 @@ export default function LoginPage() {
               id="email"
               type="email"
               required
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-700"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
@@ -70,7 +70,7 @@ export default function LoginPage() {
               id="password"
               type="password"
               required
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-700"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
@@ -82,7 +82,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full inline-flex justify-center items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60 cursor-pointer"
+            className="w-full inline-flex justify-center items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Loggar in..." : "Logga in"}
           </button>
@@ -92,7 +92,7 @@ export default function LoginPage() {
           Har du inget konto?{" "}
           <a
             href="/signup"
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-slate-900 hover:underline"
           >
             Skapa konto
           </a>

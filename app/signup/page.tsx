@@ -33,7 +33,7 @@ export default function SignupPage() {
 
         {/* 🔴 REGISTRATION DISABLED MESSAGE */}
         {!REGISTRATION_OPEN && (
-          <p className="mt-4 text-sm text-red-700 text-center font-medium">
+          <p className="mt-2 text-sm text-red-800 bg-yellow-50 p-2 text-center font-medium">
             Registrering är för närvarande avstängd medan vi arbetar vidare med
             sidan. <br /> Kom tillbaka snart!
           </p>
@@ -80,7 +80,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={!REGISTRATION_OPEN}
-            className="w-full inline-flex justify-center items-center rounded-md bg-blue-300 px-4 py-2 text-sm font-medium text-white cursor-not-allowed"
+            className="w-full inline-flex justify-center items-center rounded-md bg-slate-900 disabled:bg-slate-300 px-4 py-2 text-sm font-medium text-white cursor-not-allowed"
           >
             Skapa konto
           </button>
@@ -90,7 +90,7 @@ export default function SignupPage() {
           Har du redan ett konto?{" "}
           <a
             href="/login"
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-slate-900 hover:underline"
           >
             Logga in
           </a>

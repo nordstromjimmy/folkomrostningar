@@ -35,7 +35,7 @@ export function DocumentCard({ doc }: DocumentCardProps) {
   }, [doc.id]);
 
   return (
-    <li className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+    <li className="rounded-xl border border-gray-200 bg-slate-50 p-4 shadow-sm transition-shadow hover:shadow-md">
       {/* Title + type pill */}
       <div className="flex items-start justify-between gap-2">
         <Link
